@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:photo_puzzle_app/controller.dart';
 import 'package:photo_puzzle_app/puzzle.dart';
 import 'package:photo_puzzle_app/timer.dart';
 
@@ -43,6 +44,8 @@ class _HomePageState extends State<HomePage> {
           children: const [
             SizedBox(height: 30),
             Timer(),
+            SizedBox(height: 20),
+            Controller(),
           ],
         )
       ),
