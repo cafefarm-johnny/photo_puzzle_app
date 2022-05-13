@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_puzzle_app/puzzle.dart';
+import 'package:photo_puzzle_app/timer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -37,6 +38,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Container(
         color: const Color(0xff2a2926),
+        width: double.infinity,
+        child: Column(
+          children: const [
+            SizedBox(height: 30),
+            Timer(),
+          ],
+        )
       ),
     );
   }
