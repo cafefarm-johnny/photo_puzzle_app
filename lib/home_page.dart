@@ -95,13 +95,21 @@ class _HomePageState extends State<HomePage> {
                 toggleReset: _toggleReset,
             ),
             const SizedBox(height: 50),
-            Playground(
-              pieces: _pieces,
-              playing: _playing,
-            ),
+            _buildPlayground(),
           ],
         )
       ),
+    );
+  }
+
+  Widget _buildPlayground() {
+    if (!Puzzle().ready) {
+      return const SizedBox.shrink();
+    }
+
+    return Playground(
+      pieces: _pieces,
+      playing: _playing,
     );
   }
 }
