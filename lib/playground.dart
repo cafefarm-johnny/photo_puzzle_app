@@ -67,7 +67,7 @@ class _PlaygroundState extends State<Playground> {
       case 2:
         return index == _thumbIndex - 1;
       default:
-        return index == _thumbIndex + 1 || index == _thumbIndex + 1;
+        return index == _thumbIndex + 1 || index == _thumbIndex - 1;
     }
   }
 
