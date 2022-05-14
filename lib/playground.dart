@@ -26,7 +26,6 @@ class _PlaygroundState extends State<Playground> {
   bool _thumbSelected = false;
 
   void _select(int index) {
-    print("selected");
     if (!_canSwap(index)) {
       setState(() {
         _thumbSelected = false;
@@ -39,6 +38,12 @@ class _PlaygroundState extends State<Playground> {
       _swap(_thumbIndex, index);
 
       widget.onPuzzleChange();
+    });
+  }
+
+  void _selectThumb() {
+    setState(() {
+      _thumbSelected = !_thumbSelected;
     });
   }
 
@@ -116,7 +121,7 @@ class _PlaygroundState extends State<Playground> {
 
   Widget _createThumb(double pieceSize) {
     return GestureDetector(
-      onTap: (){},
+      onTap: _selectThumb,
       child: SizedBox(
         width: pieceSize,
         height: pieceSize,
