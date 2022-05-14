@@ -40,6 +40,15 @@ class _HomePageState extends State<HomePage> {
     _playing ? _stop() : _start();
   }
 
+  void _toggleReset() {
+    setState(() {
+      _timer.cancel();
+      _playing = false;
+      _playTime = 0;
+      _tryCount = 0;
+    });
+  }
+
   void _stop() {
     _timer.cancel();
     setState(() {
@@ -80,7 +89,11 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 30),
             TimerScore(playing: _playing, time: _playTime, tryCount: _tryCount),
             const SizedBox(height: 20),
-            Controller(playing: _playing, togglePlay: _togglePlay),
+            Controller(
+                playing: _playing,
+                togglePlay: _togglePlay,
+                toggleReset: _toggleReset,
+            ),
             const SizedBox(height: 50),
             const Playground(),
           ],

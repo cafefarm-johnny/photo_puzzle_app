@@ -5,10 +5,12 @@ class Controller extends StatelessWidget {
     Key? key,
     required this.playing,
     required this.togglePlay,
+    required this.toggleReset,
   }) : super(key: key);
 
   final bool playing;
   final VoidCallback togglePlay;
+  final VoidCallback toggleReset;
 
   // 버튼 배경, 크기 조정
   static final _elevatedButtonStyle = ElevatedButton.styleFrom(
@@ -49,7 +51,7 @@ class Controller extends StatelessWidget {
 
   Widget _createResetButton() {
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: toggleReset,
       style: _elevatedButtonStyle,
       child: Image.asset(
         "assets/replay.png",
