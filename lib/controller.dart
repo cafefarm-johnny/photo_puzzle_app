@@ -6,11 +6,13 @@ class Controller extends StatelessWidget {
     required this.playing,
     required this.togglePlay,
     required this.toggleReset,
+    required this.toggleShuffle,
   }) : super(key: key);
 
   final bool playing;
   final VoidCallback togglePlay;
   final VoidCallback toggleReset;
+  final VoidCallback toggleShuffle;
 
   // 버튼 배경, 크기 조정
   static final _elevatedButtonStyle = ElevatedButton.styleFrom(
@@ -61,7 +63,7 @@ class Controller extends StatelessWidget {
 
   Widget _createShuffleButton() {
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: toggleShuffle,
         style: _elevatedButtonStyle,
       child: Image.asset(
         "assets/shuffle.png",

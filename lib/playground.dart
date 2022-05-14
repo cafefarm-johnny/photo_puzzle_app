@@ -5,10 +5,12 @@ class Playground extends StatefulWidget {
     Key? key,
     required this.pieces,
     required this.playing,
+    required this.isComplete,
   }) : super(key: key);
 
   final List<Image> pieces;
   final bool playing;
+  final bool isComplete;
 
   @override
   State<Playground> createState() => _PlaygroundState();
@@ -28,7 +30,7 @@ class _PlaygroundState extends State<Playground> {
 
     widget.pieces.asMap()
       .forEach((i, piece) {
-        if (i == _thumbIndex) {
+        if (!widget.isComplete && i == _thumbIndex) {
           children.add(_createThumb(pieceSize));
         } else {
           children.add(_createPiece(i, piece, pieceSize));

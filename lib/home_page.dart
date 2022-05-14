@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   late Timer _timer;
 
   bool _playing = false;
+  bool _isComplete = false;
   int _playTime = 0;
   int _tryCount = 0;
 
@@ -44,8 +45,15 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _timer.cancel();
       _playing = false;
+      _isComplete = false;
       _playTime = 0;
       _tryCount = 0;
+    });
+  }
+
+  void _toggleShuffle() {
+    setState(() {
+      _pieces = Puzzle().pieces;
     });
   }
 
@@ -57,6 +65,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _start() {
+    if (_isComplete) {
+      _toggleReset();
+      _toggleShuffle();
+    }
+
     setState(() {
       _playing = true;
     });
@@ -93,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                 playing: _playing,
                 togglePlay: _togglePlay,
                 toggleReset: _toggleReset,
+              toggleShuffle: _toggleShuffle,
             ),
             const SizedBox(height: 50),
             _buildPlayground(),
@@ -110,6 +124,7 @@ class _HomePageState extends State<HomePage> {
     return Playground(
       pieces: _pieces,
       playing: _playing,
+      isComplete: _isComplete,
     );
   }
 }
