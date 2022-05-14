@@ -95,7 +95,10 @@ class _HomePageState extends State<HomePage> {
                 toggleReset: _toggleReset,
             ),
             const SizedBox(height: 50),
-            const Playground(),
+            Playground(
+              pieces: _pieces,
+              playing: _playing,
+            ),
           ],
         )
       ),
