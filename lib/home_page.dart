@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:photo_puzzle_app/controller.dart';
 import 'package:photo_puzzle_app/playground.dart';
@@ -13,6 +15,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late List<Image> _pieces;
+  late Timer _timer;
+
+  bool _playing = false;
+  int _playTime = 0;
 
   @override
   void initState() {
@@ -29,6 +35,33 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _togglePlay() {
+    _playing ? _stop() : _start();
+  }
+
+  void _stop() {
+    _timer.cancel();
+    setState(() {
+      _playing = false;
+    });
+  }
+
+  void _start() {
+    setState(() {
+      _playing = true;
+    });
+
+    _timer = resetTimer();
+  }
+
+  Timer resetTimer() {
+    return Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        _playTime++;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,13 +75,13 @@ class _HomePageState extends State<HomePage> {
         color: const Color(0xff2a2926),
         width: double.infinity,
         child: Column(
-          children: const [
-            SizedBox(height: 30),
-            Timer(),
-            SizedBox(height: 20),
-            Controller(),
-            SizedBox(height: 50),
-            Playground(),
+          children: [
+            const SizedBox(height: 30),
+            TimerScore(playing: _playing, time: _playTime),
+            const SizedBox(height: 20),
+            Controller(playing: _playing, togglePlay: _togglePlay),
+            const SizedBox(height: 50),
+            const Playground(),
           ],
         )
       ),

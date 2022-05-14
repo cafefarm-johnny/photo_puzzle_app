@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class Timer extends StatefulWidget {
-  const Timer({Key? key}) : super(key: key);
+class TimerScore extends StatelessWidget {
+  const TimerScore({
+    Key? key,
+    required this.playing,
+    required this.time,
+  }) : super(key: key);
 
-  @override
-  State<Timer> createState() => _TimerState();
-}
-
-class _TimerState extends State<Timer> {
+  final bool playing;
+  final int time;
 
   final _width = 180.0;
   final _height = 80.0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,12 @@ class _TimerState extends State<Timer> {
     );
   }
 
+
   Widget _createTimer() {
+    final minute = (time ~/ 60).toString().padLeft(2, "0");
+    final second = (time % 60).toString().padLeft(2, "0");
+    final timeFormat = "$minute : $second";
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.redAccent,
@@ -34,16 +41,16 @@ class _TimerState extends State<Timer> {
       height: _height,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
-            "00 : 00",
-            style: TextStyle(
+            timeFormat,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 34,
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
+          const Text(
             "Play Time",
             style: TextStyle(
                 color: Colors.white,

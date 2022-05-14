@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Controller extends StatelessWidget {
-  const Controller({Key? key}) : super(key: key);
+  const Controller({
+    Key? key,
+    required this.playing,
+    required this.togglePlay,
+  }) : super(key: key);
+
+  final bool playing;
+  final VoidCallback togglePlay;
 
   // 버튼 배경, 크기 조정
   static final _elevatedButtonStyle = ElevatedButton.styleFrom(
@@ -32,10 +39,10 @@ class Controller extends StatelessWidget {
 
   Widget _createPlayButton() {
     return ElevatedButton(
-      onPressed: (){},
+      onPressed: togglePlay,
       style: _elevatedButtonStyle,
       child: Image.asset(
-        "assets/play.png",
+        playing ? "assets/pause.png" : "assets/play.png",
       ),
     );
   }
