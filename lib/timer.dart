@@ -5,10 +5,12 @@ class TimerScore extends StatelessWidget {
     Key? key,
     required this.playing,
     required this.time,
+    required this.tryCount,
   }) : super(key: key);
 
   final bool playing;
   final int time;
+  final int tryCount;
 
   final _width = 180.0;
   final _height = 80.0;
@@ -72,16 +74,16 @@ class TimerScore extends StatelessWidget {
       height: _height,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
-            "0",
-            style: TextStyle(
+            "$tryCount",
+            style: const TextStyle(
                 color: Colors.white,
                 fontSize: 30,
                 fontWeight: FontWeight.bold
             ),
           ),
-          Text(
+          const Text(
             "Try Count",
             style: TextStyle(
                 color: Colors.white,

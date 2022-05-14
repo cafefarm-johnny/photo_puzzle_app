@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
 
   bool _playing = false;
   int _playTime = 0;
+  int _tryCount = 0;
 
   @override
   void initState() {
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             const SizedBox(height: 30),
-            TimerScore(playing: _playing, time: _playTime),
+            TimerScore(playing: _playing, time: _playTime, tryCount: _tryCount),
             const SizedBox(height: 20),
             Controller(playing: _playing, togglePlay: _togglePlay),
             const SizedBox(height: 50),
