@@ -6,11 +6,13 @@ class Playground extends StatefulWidget {
     required this.pieces,
     required this.playing,
     required this.isComplete,
+    required this.onPuzzleChange,
   }) : super(key: key);
 
   final List<Image> pieces;
   final bool playing;
   final bool isComplete;
+  final VoidCallback onPuzzleChange;
 
   @override
   State<Playground> createState() => _PlaygroundState();
@@ -18,7 +20,60 @@ class Playground extends StatefulWidget {
 
 class _PlaygroundState extends State<Playground> {
 
-  final int _thumbIndex = 8;
+  static const _parts = 3;
+
+  int _thumbIndex = 8;
+  bool _thumbSelected = false;
+
+  void _select(int index) {
+    print("selected");
+    if (!_canSwap(index)) {
+      setState(() {
+        _thumbSelected = false;
+      });
+
+      return;
+    }
+
+    setState(() {
+      _swap(_thumbIndex, index);
+
+      widget.onPuzzleChange();
+    });
+  }
+
+  bool _canSwap(int index) {
+    if (!_thumbSelected) {
+      return false;
+    }
+
+    return _canSwapTopBottom(index) || _canSwapLeftRight(index);
+  }
+  
+  bool _canSwapTopBottom(int index) {
+    return index == _thumbIndex + _parts || index == _thumbIndex - _parts;
+  }
+  
+  bool _canSwapLeftRight(int index) {
+    final rowIndex = _thumbIndex % _parts;
+    switch (rowIndex) {
+      case 0:
+        return index == _thumbIndex + 1;
+      case 2:
+        return index == _thumbIndex - 1;
+      default:
+        return index == _thumbIndex + 1 || index == _thumbIndex + 1;
+    }
+  }
+
+  void _swap(int thumbIndex, int targetIndex) {
+    final tmp = widget.pieces[thumbIndex];
+    widget.pieces[thumbIndex] = widget.pieces[targetIndex];
+    widget.pieces[targetIndex] = tmp;
+
+    _thumbIndex = targetIndex;
+    _thumbSelected = false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +105,7 @@ class _PlaygroundState extends State<Playground> {
 
   Widget _createPiece(int index, Image piece, double pieceSize) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => _select(index),
       child: SizedBox(
         width: pieceSize,
         height: pieceSize,

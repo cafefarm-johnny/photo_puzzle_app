@@ -77,6 +77,17 @@ class _HomePageState extends State<HomePage> {
     _timer = resetTimer();
   }
 
+  void _movePuzzle() {
+    setState(() {
+      _tryCount++;
+    });
+
+    _isComplete = Puzzle().isCompleted(_pieces);
+    if (_isComplete) {
+      _stop();
+    }
+  }
+
   Timer resetTimer() {
     return Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
@@ -125,6 +136,7 @@ class _HomePageState extends State<HomePage> {
       pieces: _pieces,
       playing: _playing,
       isComplete: _isComplete,
+      onPuzzleChange: _movePuzzle,
     );
   }
 }
